@@ -1,0 +1,148 @@
+{
+  "format": "practice-studio-questions",
+  "version": 1,
+  "questions": [
+    {
+      "id": "demo-fill",
+      "kind": "fill",
+      "title": "Original sample: Campus garden",
+      "seconds": 180,
+      "passage": "Our campus garden is a quiet place to read. Students ma__ small signs to identify the plants. They sh___ tools and water the flowers after class.",
+      "answers": [
+        "make",
+        "share"
+      ]
+    },
+    {
+      "id": "demo-daily",
+      "kind": "daily",
+      "title": "Original sample: Tool borrowing notice",
+      "seconds": 180,
+      "passage": "Campus Tool Desk\nStarting Monday, students may borrow repair tools from Room 18 between 1 p.m. and 4 p.m. Bring your student card. Return each tool before noon the next day. The desk is closed on Fridays.",
+      "questions": [
+        {
+          "stem": "What must a student bring to borrow a tool?",
+          "options": [
+            {
+              "label": "A",
+              "text": "A student card"
+            },
+            {
+              "label": "B",
+              "text": "A repair receipt"
+            },
+            {
+              "label": "C",
+              "text": "A printed application"
+            },
+            {
+              "label": "D",
+              "text": "A deposit in cash"
+            }
+          ],
+          "answer": "A"
+        },
+        {
+          "stem": "When is the tool desk closed?",
+          "options": [
+            {
+              "label": "A",
+              "text": "Every Monday"
+            },
+            {
+              "label": "B",
+              "text": "Every Friday"
+            },
+            {
+              "label": "C",
+              "text": "Every Wednesday"
+            },
+            {
+              "label": "D",
+              "text": "Every afternoon"
+            }
+          ],
+          "answer": "B"
+        }
+      ]
+    },
+    {
+      "id": "demo-academic",
+      "kind": "academic",
+      "title": "Original sample: Study environments",
+      "seconds": 300,
+      "passage": "A student group compared two study spaces for one week. One room allowed conversation, while the other required silence. Participants chose their own rooms and recorded how much work they completed. Students in the quiet room reported finishing more tasks. However, the groups may have differed in motivation before the study began. A stronger comparison would assign students to rooms randomly and measure similar tasks in both spaces.",
+      "questions": [
+        {
+          "stem": "Why would random assignment strengthen the comparison?",
+          "options": [
+            {
+              "label": "A",
+              "text": "It would guarantee that every student enjoys silence."
+            },
+            {
+              "label": "B",
+              "text": "It would eliminate the need to measure completed tasks."
+            },
+            {
+              "label": "C",
+              "text": "It could reduce differences between the groups before studying."
+            },
+            {
+              "label": "D",
+              "text": "It would allow conversation in both study spaces."
+            }
+          ],
+          "answer": "C"
+        }
+      ]
+    },
+    {
+      "id": "demo-email",
+      "kind": "email",
+      "title": "Original sample: Repair workshop email",
+      "seconds": 420,
+      "prompt": "Your campus club plans to hold a repair workshop. The organizer, Jordan Lee, asks members for suggestions.\nWrite an email to Jordan. In your email:\n• Suggest one useful repair skill to teach.\n• Explain what materials participants should bring.\n• Offer one way you could help organize the workshop.",
+      "to": "Jordan Lee",
+      "subject": "Ideas for the repair workshop"
+    },
+    {
+      "id": "demo-discussion",
+      "kind": "discussion",
+      "title": "Original sample: Shared study spaces",
+      "seconds": 600,
+      "prompt": "Professor: Our class is discussing how a university should use a vacant room. Would a quiet study room or a collaborative project space be more useful to students? Explain your view.\nMorgan: A quiet room would help students who cannot find a peaceful place at home.\nRiley: A project space would make it easier for students from different courses to work together.\nWrite a contribution to the discussion. Support your opinion with reasons or examples."
+    },
+    {
+      "id": "demo-repeat",
+      "kind": "repeat",
+      "title": "Original sample: Craft studio",
+      "seconds": 20,
+      "questions": [
+        {
+          "stem": "Please leave your bag beside the door."
+        },
+        {
+          "stem": "The blue shelf holds the materials for this afternoon."
+        },
+        {
+          "stem": "Before you begin your project, ask a volunteer to check your tools."
+        }
+      ]
+    },
+    {
+      "id": "demo-interview",
+      "kind": "interview",
+      "title": "Original sample: Learning a new skill",
+      "seconds": 45,
+      "questions": [
+        {
+          "stem": "What practical skill would you like to learn, and why?"
+        },
+        {
+          "stem": "Describe a time when another person helped you learn something difficult."
+        }
+      ]
+    }
+  ]
+}

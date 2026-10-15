@@ -1,0 +1,3 @@
+# Optional on macOS when Swift, PDFKit and Vision are available.
+# Required for text PDFs on Windows/Linux. OCR additionally uses local Poppler/Tesseract.
+pypdf>=5.4,<8

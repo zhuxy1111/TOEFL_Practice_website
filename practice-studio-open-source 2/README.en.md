@@ -1,0 +1,60 @@
+# Practice Studio
+
+[中文说明](README.md)
+
+A local English-practice app with your own question library. No third-party test bank, PDFs, images or official recordings are bundled. The included sample tasks are original demonstrations.
+
+## Start
+
+Requires Python 3.10+. On macOS, double-click **Start Practice.command**, or run:
+
+```sh
+python3 tools/serve.py --lang en
+```
+
+Open the printed local URL (port 8767 by default). Keep the startup window open while practicing. Use Ctrl+C to stop. The same Python command works on Windows and Linux. Use `--port` to choose another port.
+
+Select **中文 / English** at the top of the library or exam screen. The preference is remembered in this browser. Changing the UI preserves progress and the question-entry form. It does not translate uploaded text, answers or saved reports. Stop and save a recording before switching. Close dialogs before changing the language; PDF drafts remain available through **Continue editing drafts** until the page is refreshed.
+
+## Bring your questions
+
+Use **Import & manage questions** to enter a task, import JSON or extract a PDF. Check the preview before adding questions. Supported tasks: word completion, daily-life and academic reading, email writing, academic discussion, listen-and-repeat and interviews.
+
+- JSON: up to 2 MB and 500 sets in the local library. English templates are available in the app. See [QUESTION_FORMAT.en.md](QUESTION_FORMAT.en.md).
+- PDF: up to 25 MB, 1,000 pages in the file, 200 pages extracted per batch and 20 OCR pages per batch. Choose a range, task type and splitting method, then edit the draft passage, questions, choices and keys. Complex columns, tables, page breaks and answer appendices can require manual correction. Missing answers are never guessed. Illustration-based tasks need a text description.
+- Encrypted PDFs must be unlocked with your own password first. Word files, standalone image uploads and audio question banks are not imported directly.
+
+macOS PDF extraction uses PDFKit and Vision through a Swift helper. A working Swift command-line toolchain is required (`xcode-select --install` if absent). The first run compiles a helper; later runs reuse a private local cache.
+
+On Windows/Linux, install text extraction with:
+
+```sh
+python3 -m pip install -r requirements.txt
+```
+
+Scanned-page OCR additionally requires Poppler (`pdftoppm`) and Tesseract (including English language data) on PATH. Without OCR tools, text PDFs can still be extracted.
+
+## Data and feedback
+
+Questions, progress and essays stay in localStorage for the current browser/address; recordings stay in IndexedDB. Export a **full backup** before clearing data or changing devices/ports. It contains your question bank, responses, recordings and reports. Restoring replaces current data and disables automatic grading. Backups can contain private or copyrighted material; do not commit them to a public repository.
+
+PDF files are processed temporarily on this computer and removed when processing ends or fails. Extraction results are discarded from the service after delivery; disconnected results expire after 15 minutes and retained results are bounded. The original PDF and editable drafts are held only in the current page's memory. Import your reviewed questions before refreshing. Extraction and OCR do not use cloud-model quota or paid APIs.
+
+Optional writing feedback requires compatible local Codex installed and signed in with the student's own ChatGPT account. Manual feedback sends only the selected prompt and essay through Codex, using that local account's available quota. It does not configure an additional API key. Availability depends on the account and CLI version.
+
+New reports use the current UI language. Chinese and English reports have separate caches; generating a report in another language uses quota again. Merely switching languages does not submit anything. Existing reports retain their text. Feedback is an unofficial 0–5 task practice score, with edits and a revised example. Speaking recordings are not AI-scored. Automatic writing feedback is off by default and can be explicitly enabled in settings.
+
+**Clear questions & records** removes this address's browser data and recordings. Local AI reports and compiled PDF helpers are separate: stop the server and delete `.local-data/` if you want to remove them too. No shared online question bank or multi-user server is provided. Do not expose the local server publicly; it uses the computer owner's account.
+
+## Open-source scope and checks
+
+Code and original samples are licensed under [MIT](LICENSE). This does not license third-party material imported by users. No old Git history, private deployment IDs, account credentials, original test bank, personal essays or caches are included. Keep `.local-data/`, user materials and private backups out of the repository.
+
+```sh
+node tools/test_bank.mjs
+node tools/test_pdf_parser.mjs
+node tools/test_i18n.mjs
+python3 -m unittest discover -s tools -p 'test_*.py'
+```
+
+Tests use original fixtures and mocked feedback, not cloud-model calls. The app is unaffiliated with or endorsed by ETS or any training provider. Static hosting supports JSON/form practice; local AI feedback and PDF extraction/OCR require the local server.

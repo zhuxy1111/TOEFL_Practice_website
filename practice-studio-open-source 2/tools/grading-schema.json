@@ -1,0 +1,147 @@
+{
+  "type": "object",
+  "properties": {
+    "score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "summary": {
+      "type": "string"
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5
+          },
+          "feedback": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "score",
+          "feedback"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "taskChecks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "requirement": {
+            "type": "string"
+          },
+          "met": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "requirement",
+          "met",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priorities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "issue": {
+            "type": "string"
+          },
+          "advice": {
+            "type": "string"
+          },
+          "example": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "issue",
+          "advice",
+          "example"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "corrections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "original": {
+            "type": "string"
+          },
+          "revised": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "grammar",
+              "vocabulary",
+              "organization",
+              "tone",
+              "style",
+              "content"
+            ]
+          }
+        },
+        "required": [
+          "original",
+          "revised",
+          "reason",
+          "category"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "improvedResponse": {
+      "type": "string"
+    },
+    "rewriteNote": {
+      "type": "string"
+    },
+    "limitations": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "score",
+    "summary",
+    "criteria",
+    "taskChecks",
+    "strengths",
+    "priorities",
+    "corrections",
+    "improvedResponse",
+    "rewriteNote",
+    "limitations"
+  ],
+  "additionalProperties": false
+}
