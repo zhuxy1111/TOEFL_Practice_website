@@ -1,5 +1,5 @@
 # Practice Studio
-
+If you think it is helpful, please give me a star⭐️
 [中文说明](README.md)
 
 A local English-practice app with your own question library. No third-party test bank, PDFs, images or official recordings are bundled. The included sample tasks are original demonstrations.

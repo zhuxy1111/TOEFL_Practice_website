@@ -1,5 +1,5 @@
 # Practice Studio
-
+如果觉得还不错，请给我个star⭐️
 [English documentation](README.en.md)
 
 自带题库的本地英语练习平台。首次启动是空题库，不附带第三方试题、PDF、图片或官方音频。
