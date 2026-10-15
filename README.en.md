@@ -47,7 +47,6 @@ New reports use the current UI language. Chinese and English reports have separa
 **Clear questions & records** removes this address's browser data and recordings. Local AI reports and compiled PDF helpers are separate: stop the server and delete `.local-data/` if you want to remove them too. No shared online question bank or multi-user server is provided. Do not expose the local server publicly; it uses the computer owner's account.
 
 ## Open-source scope and checks
- Keep `.local-data/`, user materials and private backups out of the repository.
 
 ```sh
 node tools/test_bank.mjs
