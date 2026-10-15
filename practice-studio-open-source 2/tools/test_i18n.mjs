@@ -6,7 +6,7 @@ const node=()=>({innerHTML:'',textContent:'',style:{},classList:{add(){},toggle(
 const document={documentElement:{lang:''},title:'',querySelector:s=>nodes.get(s)||null,querySelectorAll:()=>[],addEventListener(){}};
 const ctx={window:{addEventListener(){}},document,localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},location:{hostname:'localhost',protocol:'http:'},setInterval:()=>0,setTimeout:()=>0,clearTimeout(){},Date,Math,crypto:globalThis.crypto,console};
 vm.createContext(ctx);
-for(const file of ['translations.js','i18n.js','bank.js','pdf-parser.js','pdf-import.js','importer.js','ai.js'])vm.runInContext(fs.readFileSync('dist/'+file,'utf8'),ctx);
+for(const file of ['translations.js','i18n.js','project.js','feedback.js','bank.js','pdf-parser.js','pdf-import.js','importer.js','ai.js'])vm.runInContext(fs.readFileSync('dist/'+file,'utf8'),ctx);
 ctx.BANK=ctx.window.BANK;
 vm.runInContext(fs.readFileSync('dist/app.js','utf8').replace(/render\(\);\s*$/,''),ctx);
 assert.equal(ctx.I18N.lang(),'zh');assert.equal(ctx.tr('练习题库'),'练习题库');

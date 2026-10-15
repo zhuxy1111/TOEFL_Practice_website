@@ -1,0 +1,23 @@
+# Personal materials and generated data
+.local-data/
+work/
+private/
+.env*
+__pycache__/
+*.pyc
+.DS_Store
+*.zip
+*.tar.gz
+.openai/
+# Original third-party PDFs, media and imported banks must stay private.
+*.pdf
+*.webm
+*.m4a
+*.mp3
+*.wav
+my-practice-questions*.json
+practice-studio-backup*.json
+
+.venv/
+.vscode/
+Thumbs.db

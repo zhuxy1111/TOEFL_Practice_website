@@ -1,0 +1,42 @@
+name: "Suggest an improvement / 提出建议"
+description: "Share an idea to improve practice. / 分享你的使用建议。"
+title: "[Idea] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Practice Studio! 欢迎反馈，可以使用中文或英文。
+        This issue is public. Do not upload complete question banks, essays, recordings or personal information.
+        此处内容公开，请勿上传完整题库、作文、录音或个人信息。截图请先遮挡敏感内容。
+  - type: textarea
+    id: summary
+    attributes:
+      label: "What are you trying to do? / 你想完成什么？"
+      description: "Describe the goal and what is inconvenient today. / 描述你的目标及目前不方便的地方。"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: "Suggested improvement / 希望怎样改进"
+      description: "Explain your proposed change and why it helps. / 说明你希望的变化及其用途。"
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: "System information / 系统信息"
+      description: "App version, OS and browser. Copy from the app feedback window; edit as needed. / 可从平台反馈窗口复制，并自行修改。"
+      placeholder: "Practice Studio version, Windows/macOS/Linux, browser"
+  - type: textarea
+    id: extra
+    attributes:
+      label: "Additional context / 补充说明"
+      description: "Optional redacted screenshots or an original minimal example. / 可选：遮挡隐私后的截图或自编最小示例。"
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: "Before submitting / 提交前确认"
+      options:
+        - label: "I have removed personal/private or copyrighted materials I cannot share. / 我已移除不宜公开的个人信息及无权分享的材料。"
+          required: true

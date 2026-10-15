@@ -1,4 +1,4 @@
-import time,unittest
+import time,unittest,importlib.util,io
 from unittest.mock import patch
 from pdf_import import PDFJobs,PDFError,MAX_BYTES
 class PDFTests(unittest.TestCase):
@@ -28,4 +28,19 @@ class PDFTests(unittest.TestCase):
  def test_result_retention_bounded(self):
   for _ in range(8):self.wait(self.jobs.submit(b'%PDF-1.4',1,1))
   self.assertLessEqual(len(self.jobs.jobs),3)
+class PortablePDFTests(unittest.TestCase):
+ @unittest.skipUnless(importlib.util.find_spec('pypdf'),'Optional pypdf dependency is not installed')
+ def test_portable_worker_extracts_text_and_unicode_warnings(self):
+  from pypdf import PdfWriter
+  from pypdf.generic import DictionaryObject,NameObject,DecodedStreamObject
+  from pdf_import import run_extraction
+  writer=PdfWriter();writer.add_blank_page(width=612,height=792);page=writer.add_blank_page(width=612,height=792)
+  font=DictionaryObject({NameObject('/Type'):NameObject('/Font'),NameObject('/Subtype'):NameObject('/Type1'),NameObject('/BaseFont'):NameObject('/Helvetica')})
+  page[NameObject('/Resources')]=DictionaryObject({NameObject('/Font'):DictionaryObject({NameObject('/F1'):font})})
+  content=DecodedStreamObject();content.set_data(b'BT /F1 12 Tf 72 720 Td (Original portable PDF test.) Tj ET');page.replace_contents(content)
+  buffer=io.BytesIO();writer.write(buffer)
+  with patch('pdf_import.platform.system',return_value='Windows'):
+   result=run_extraction(buffer.getvalue(),2,2,'never')
+  self.assertIn('Original portable PDF test.',result['pages'][0]['text']);self.assertTrue(any('第 2' in x for x in result['warnings']))
+
 if __name__=='__main__':unittest.main()

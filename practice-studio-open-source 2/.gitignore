@@ -1,5 +1,7 @@
 # Personal materials and generated data
 .local-data/
+.venv/
+Thumbs.db
 work/
 private/
 .env*

@@ -37,7 +37,7 @@ def extract_file(path,start=1,end=200,mode='auto'):
      prefix=str(Path(tmp)/'page')
      try:
       subprocess.run(['pdftoppm','-f',str(number),'-l',str(number),'-scale-to','2000','-singlefile','-png',str(path),prefix],capture_output=True,timeout=30,check=True)
-      result=subprocess.run(['tesseract',prefix+'.png','stdout','-l','eng','--psm','3'],capture_output=True,text=True,timeout=45,check=True)
+      result=subprocess.run(['tesseract',prefix+'.png','stdout','-l','eng','--psm','3'],capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=45,check=True)
       if result.stdout.strip():text=result.stdout;method='ocr'
      except (OSError,subprocess.SubprocessError):warnings.append(f'第 {number} 页 OCR 未完成，请检查本机 OCR 依赖。')
    else:warnings.append(f'第 {number} 页文字较少：本机未配置 OCR，可安装 Poppler 和 Tesseract 或复制文字手动输入。')
@@ -60,7 +60,7 @@ def native_helper():
   if not compiler:raise PDFError('需要 macOS Swift 命令行工具，或安装 requirements.txt。',503)
   with tempfile.TemporaryDirectory(prefix='build-',dir=cache) as build:
    target=Path(build)/'extract'
-   result=subprocess.run([compiler,'-module-cache-path',str(cache/'modules'),str(source),'-o',str(target)],capture_output=True,text=True,timeout=180)
+   result=subprocess.run([compiler,'-module-cache-path',str(cache/'modules'),str(source),'-o',str(target)],capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=180)
    if result.returncode:raise PDFError('无法准备 macOS PDF 识别程序，请检查 Swift 命令行工具。',503)
    target.chmod(0o700);target.replace(binary)
  return binary
@@ -78,7 +78,7 @@ def run_extraction(raw,start,end,mode):
   else:
    args=[sys.executable,str(Path(__file__).resolve()),str(source),str(start),str(end),mode]
   # No shell evaluation, user-controlled file paths, model calls or persistent PDF copies.
-  try:result=subprocess.run(args,capture_output=True,text=True,timeout=240,cwd=tmp)
+  try:result=subprocess.run(args,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=240,cwd=tmp)
   except subprocess.TimeoutExpired:raise PDFError('识别超时，请缩小页码范围后重试。',504)
   except OSError:raise PDFError('无法启动本机 PDF 识别程序，请检查运行依赖。',503)
   if result.returncode:raise PDFError('PDF 识别程序未能运行。macOS 请检查 Swift 命令行工具；其他系统请安装 requirements.txt。',503)
@@ -127,12 +127,20 @@ class PDFJobs:
    if jid in self.jobs and self.jobs[jid]['status']not in {'queued','running'}:del self.jobs[jid]
 
 if __name__=='__main__':
+ if hasattr(sys.stdout,'reconfigure'):sys.stdout.reconfigure(encoding='utf-8')
  try:
   # Limit resource use for untrusted compressed PDF content on Unix.
   if os.name=='posix':
    import resource
-   resource.setrlimit(resource.RLIMIT_AS,(2*1024**3,2*1024**3))
-   resource.setrlimit(resource.RLIMIT_CPU,(180,180))
+   limits=[(resource.RLIMIT_CPU,180)]
+   # Darwin may reject RLIMIT_AS even for otherwise valid local extraction.
+   if platform.system()=='Linux':limits.append((resource.RLIMIT_AS,2*1024**3))
+   for kind,value in limits:
+    try:
+     hard=resource.getrlimit(kind)[1]
+     bound=value if hard==resource.RLIM_INFINITY else min(value,hard)
+     resource.setrlimit(kind,(bound,bound))
+    except (ValueError,OSError):pass
   print(json.dumps(extract_file(Path(sys.argv[1]),int(sys.argv[2]),int(sys.argv[3]),sys.argv[4]),ensure_ascii=False))
  except PDFError as e:print(json.dumps({'error':str(e),'status':e.status},ensure_ascii=False))
  except Exception:print(json.dumps({'error':'PDF 可能损坏或无法读取。请尝试重新导出。','status':422},ensure_ascii=False))
